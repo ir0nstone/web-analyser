@@ -1,5 +1,6 @@
 import utils.log as log
 from utils.utils import grab, url_regex, resource_regex
+from helpers.analysis import redirect
 
 from bs4 import BeautifulSoup, Comment
 from colorama import Fore
@@ -59,14 +60,16 @@ def redirects():
         log.fail('No redirects')
         return
 
-    log.success('Codes:')
+    log.success('Redirects:')
 
     for url in history:
-        redirect = Fore.RED + str(url.status_code) + Fore.RESET
-        redirect = redirect.ljust(20, ' ')
-        redirect += url.url
+        red = Fore.RED + str(url.status_code) + Fore.RESET
+        red = red.ljust(20, ' ')
+        red += url.url
 
-        log.info(redirect, indent=1)
+        log.info(red, indent=1)
+
+        redirect(url.url)
 
 
 def comments():
