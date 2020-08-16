@@ -2,6 +2,8 @@ import utils.context as context
 import utils.log as log
 
 from requests import get
+from os import getcwd
+from os.path import exists, join
 
 accept_codes = [200, 301, 404]
 
@@ -24,6 +26,7 @@ def grab(file: str='', text=True):
     
     return r
 
+
 def fix_url(url: str):
     '''Fixes incomplete urls'''
 
@@ -40,3 +43,18 @@ def fix_url(url: str):
         url = 'https://' + url
     
     return url
+
+
+def fix_filepath(file: str):
+    '''Updates the file path to the current working directory'''
+
+    # If there is a / or \, it's probably the full path already
+    if '/' in file or '\\' in file:
+        return file
+
+    full_path = join(getcwd(), file)
+
+    if exists(full_path):
+        raise EnvironmentError('The output file already exists!')
+    
+    return full_path
