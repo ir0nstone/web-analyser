@@ -5,7 +5,7 @@ from requests import get
 
 accept_codes = [200, 301, 404]
 
-url_regex = r'\w?\:\w?\.\w\.\w'
+url_regex = r'\w+\:\w+\.\w+\.\w+'
 resource_regex = r'("|\'){1}(/[\w\/]+)("|\'){1}'
 file_regex = r'\w+\.\w+'
 
