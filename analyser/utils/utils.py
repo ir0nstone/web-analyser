@@ -59,3 +59,16 @@ def fix_filepath(file: str):
         raise EnvironmentError('The output file already exists!')
     
     return full_path
+
+
+def cookie_string_to_dict(cookies: str):
+    cookie_dict = {}
+    
+    cookies = cookies.split('; ')
+
+    for c in cookies:
+        name, value = c.split('=')
+
+        cookie_dict[name] = value
+    
+    return cookie_dict
