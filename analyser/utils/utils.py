@@ -1,7 +1,7 @@
-import utils.context as context
-import utils.log as log
+import analyser.utils.context as context
+import analyser.utils.log as log
 
-from utils.constants import url_regex, resource_regex, file_regex
+from analyser.utils.constants import url_regex, resource_regex, file_regex
 
 from requests import get, Request
 from os import getcwd
