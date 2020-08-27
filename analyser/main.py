@@ -11,6 +11,7 @@ from requests import Session
 parser = ArgumentParser(description='A Web Analyser')
 parser.add_argument('-u', '--url', type=str, help='The URL')
 parser.add_argument('-o', '--output', type=str, help='The Output File')
+parser.add_argument('--user', '--user-agent', type=str, help='The User-Agent to use', default='requests')
 args = parser.parse_args()
 
 
@@ -19,6 +20,7 @@ context.url = fix_url(args.url)
 context.file = fix_filepath(args.output)
 
 context.session = Session()
+context.session.headers.update({'User-Agent': args.user})
 
 
 # Log it all
