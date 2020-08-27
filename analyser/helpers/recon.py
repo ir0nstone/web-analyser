@@ -1,10 +1,10 @@
-import utils.log as log
-import utils.context as context
+import analyser.utils.log as log
+import analyser.utils.context as context
 
-from utils.utils import grab, get_full_response
-from utils.constans import url_regex, resource_regex, jwt_regex
-from helpers.analysis import redirect
-from utils.constants import user_agents_list
+from analyser.utils.utils import grab, get_full_response
+from analyser.utils.constants import url_regex, resource_regex, jwt_regex
+from analyser.helpers.analysis import redirect
+from analyser.utils.constants import user_agents_list
 
 from bs4 import BeautifulSoup, Comment
 from colorama import Fore
@@ -17,12 +17,12 @@ def execute():
     robots()
     sitemap()
     cookies()
+    get_jwts()
     redirects()
     comments()
     urls()
     resources()
     user_agents()
-    get_jwts()
 
 
 def robots():

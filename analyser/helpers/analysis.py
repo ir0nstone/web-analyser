@@ -1,5 +1,5 @@
-from utils.utils import url_regex, resource_regex, file_regex
-import utils.log as log
+from analyser.utils.utils import url_regex, resource_regex, file_regex
+import analyser.utils.log as log
 
 from urllib.parse import unquote
 
