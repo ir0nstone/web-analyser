@@ -7,6 +7,9 @@ Analyses Websites for you. It can grab a limited amount of things (for now), but
 * Comments
 * URLs in the source
 * Resources in the source, e.g. `/api/v2`
+* Differences between User-Agents
+
+Also supports the use of a custom User-Agent
 
 # Installing
 ```
