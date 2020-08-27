@@ -1,15 +1,13 @@
 import utils.context as context
 import utils.log as log
 
+from utils.constants import url_regex, resource_regex, file_regex
+
 from requests import get
 from os import getcwd
 from os.path import exists, join
 
 accept_codes = [200, 301, 404]
-
-url_regex = r'\w+\:\w+\.\w+\.\w+'
-resource_regex = r'("|\'){1}(/[\w\/]+)("|\'){1}'
-file_regex = r'\w+\.\w+'
 
 def grab(file: str='', text=True):
     r = context.session.get(context.url + '/' + file)

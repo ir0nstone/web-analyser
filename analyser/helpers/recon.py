@@ -1,6 +1,9 @@
 import utils.log as log
+import utils.context as context
+
 from utils.utils import grab, url_regex, resource_regex
 from helpers.analysis import redirect
+from utils.constants import user_agents_list
 
 from bs4 import BeautifulSoup, Comment
 from colorama import Fore
@@ -16,6 +19,7 @@ def execute():
     comments()
     urls()
     resources()
+    user_agents()
 
 
 
@@ -112,3 +116,18 @@ def resources():
 
     for res in resources:
         log.info(res[1], indent=1)
+
+
+def user_agents():
+    length = len(context.session.get(context.url).text)
+    log.info(f'Standard Response Length: {length}')
+
+    for agent in user_agents_list:
+        r = context.session.get(context.url, headers={'User-Agent': agent})
+
+        log.info(agent, indent=1)
+
+        if len(r.text) != length:
+            log.success(f'Response size is different: {len(r.text)}', indent=2)
+        else:
+            log.fail('Default length', indent=2)
