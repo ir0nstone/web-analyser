@@ -12,7 +12,7 @@ resource_regex = r'("|\'){1}(/[\w\/]+)("|\'){1}'
 file_regex = r'\w+\.\w+'
 
 def grab(file: str='', text=True):
-    r = get(context.url + '/' + file)
+    r = context.session.get(context.url + '/' + file)
 
     if r.status_code not in accept_codes:
         if file != '':
