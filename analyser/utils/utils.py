@@ -3,11 +3,11 @@ import utils.log as log
 
 from utils.constants import url_regex, resource_regex, file_regex
 
-from requests import get
+from requests import get, Request
 from os import getcwd
 from os.path import exists, join
 
-accept_codes = [200, 301, 404]
+accept_codes = [200, 301]
 
 def grab(file: str='', text=True):
     r = context.session.get(context.url + '/' + file)
@@ -72,3 +72,7 @@ def cookie_string_to_dict(cookies: str):
         cookie_dict[name] = value
     
     return cookie_dict
+
+
+def get_full_response(resp: Request):
+    return ''.join(f'{header.lower()}: {value}\r\n' for header, value in resp.headers.items()) + '\r\n' + resp.text

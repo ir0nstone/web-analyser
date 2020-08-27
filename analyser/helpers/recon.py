@@ -1,13 +1,15 @@
 import utils.log as log
 import utils.context as context
 
-from utils.utils import grab, url_regex, resource_regex
+from utils.utils import grab, get_full_response
+from utils.constans import url_regex, resource_regex, jwt_regex
 from helpers.analysis import redirect
 from utils.constants import user_agents_list
 
 from bs4 import BeautifulSoup, Comment
 from colorama import Fore
 from re import findall
+from base64 import standard_b64decode
 
 def execute():
     '''The function that calls all others'''
@@ -20,7 +22,7 @@ def execute():
     urls()
     resources()
     user_agents()
-
+    get_jwts()
 
 
 def robots():
@@ -53,6 +55,25 @@ def cookies():
         cookie_data += cookies[x]
 
         log.info(cookie_data, indent=1)
+
+
+def get_jwts():
+    response = get_full_response(grab(text=False))
+
+    jwts = findall(jwt_regex, response)
+
+    if len(jwts) == 0:
+        log.error('No JWTs')
+        return
+    
+    log.success('JWTs found:')
+
+    for jwt in jwts:
+        log.success(jwt, indent=1)
+
+        # The last section of a JWT is the signature
+        for section in jwt.split('.')[:-1]:
+            log.info(standard_b64decode(section), indent=2)
 
 
 def redirects():

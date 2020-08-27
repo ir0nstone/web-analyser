@@ -1,6 +1,7 @@
 url_regex = r'\w+\:\w+\.\w+\.\w+'
 resource_regex = r'("|\'){1}(/[\w\/]+)("|\'){1}'
 file_regex = r'\w+\.\w+'
+jwt_regex = r'^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$'
 
 
 # Grabbed from

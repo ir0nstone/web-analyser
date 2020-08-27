@@ -1,10 +1,10 @@
 import utils.context as context
 import utils.log as log
 import helpers.recon as recon
-from utils.utils import fix_url, fix_filepath, cookie_string_to_dict
+from utils.utils import fix_url, fix_filepath, cookie_string_to_dict, get_full_response
 
 from argparse import ArgumentParser
-from requests import Session
+from requests import Session, get
 
 
 # Arguments
@@ -17,8 +17,8 @@ args = parser.parse_args()
 
 
 # Set the Context
-context.url = fix_url(args.url)
-context.file = fix_filepath(args.output)
+#context.url = fix_url(args.url)
+#context.file = fix_filepath(args.output)
 
 context.session = Session()
 context.session.headers.update({'User-Agent': args.user})
@@ -26,7 +26,7 @@ context.session.headers.update({'User-Agent': args.user})
 if args.cookies:
     context.session.cookies.update(cookie_string_to_dict(args.cookies))
 
-
+'''
 # Log it all
 log.success(f'Analysing {context.url}')
 log.success(f'Saving output to {context.file}')
@@ -34,3 +34,4 @@ log.success(f'Saving output to {context.file}')
 
 # Execute the different modules
 recon.execute()
+'''
