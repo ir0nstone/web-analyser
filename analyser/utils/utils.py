@@ -46,6 +46,9 @@ def fix_url(url: str):
 def fix_filepath(file: str):
     '''Updates the file path to the current working directory'''
 
+    if not file:
+        return
+
     # If there is a / or \, it's probably the full path already
     if '/' in file or '\\' in file:
         return file
