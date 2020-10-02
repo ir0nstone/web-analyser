@@ -1,9 +1,8 @@
-import analyser.utils.context as context
-import analyser.utils.log as log
+import utils.context as context
+import utils.log as log
 
-from analyser.utils.constants import url_regex, resource_regex, file_regex
+from utils.constants import url_regex, resource_regex, file_regex
 
-from requests import get, Request
 from os import getcwd
 from os.path import exists, join
 
@@ -74,5 +73,5 @@ def cookie_string_to_dict(cookies: str):
     return cookie_dict
 
 
-def get_full_response(resp: Request):
+def get_full_response(resp):
     return ''.join(f'{header.lower()}: {value}\r\n' for header, value in resp.headers.items()) + '\r\n' + resp.text

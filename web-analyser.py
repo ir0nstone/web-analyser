@@ -1,7 +1,7 @@
-import analyser.utils.context as context
-import analyser.utils.log as log
-import analyser.helpers.recon as recon
-from analyser.utils.utils import fix_url, fix_filepath, cookie_string_to_dict, get_full_response
+import utils.context as context
+import utils.log as log
+import helpers.recon as recon
+from utils.utils import fix_url, fix_filepath, cookie_string_to_dict, get_full_response
 
 from argparse import ArgumentParser
 from requests import Session, get
