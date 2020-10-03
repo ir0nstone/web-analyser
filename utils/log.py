@@ -18,6 +18,14 @@ def __log(text, symbol, colour, end='\n', indent=0):
     print(coloured_text, end=end)
 
 
-def info(text, end='\n', indent=0):             __log(text, '*', Fore.BLUE, end=end, indent=indent)
-def fail(text, end='\n', indent=0):             __log(text, '-', Fore.RED, end=end, indent=indent)
-def success(text, end='\n', indent=0):          __log(text, '+', Fore.GREEN, end=end, indent=indent)
+def info(text, end='\n', indent=0):
+    __log(text, '*', Fore.BLUE, end=end, indent=indent)
+
+
+def fail(text, end='\n', indent=0):
+    if not context.hide_fail:
+        __log(text, '-', Fore.RED, end=end, indent=indent)
+
+
+def success(text, end='\n', indent=0):
+    __log(text, '+', Fore.GREEN, end=end, indent=indent)

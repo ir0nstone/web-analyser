@@ -146,9 +146,9 @@ def user_agents():
     for agent in user_agents_list:
         r = context.session.get(context.url, headers={'User-Agent': agent})
 
-        log.info(agent, indent=1)
-
         if len(r.text) != length:
+            log.info(agent, indent=1)
             log.success(f'Response size is different: {len(r.text)}', indent=2)
         else:
+            log.fail(agent, indent=1)
             log.fail('Default length', indent=2)
