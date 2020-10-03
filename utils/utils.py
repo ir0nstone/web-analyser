@@ -29,10 +29,11 @@ def fix_url(url: str):
 
     # isolate the scheme and the url
     url_split = url.split('://')
-    
+    url = url_split[-1]
+
     # add www. if not full
-    if url_split[-1].count('.') == 1:
-        url = 'www.' + url_split[-1]
+    if url.count('.') == 1:
+        url = 'www.' + url
 
     # add http:// if no scheme
     if len(url_split) == 1:
