@@ -1,10 +1,10 @@
-import analyser.utils.log as log
-import analyser.utils.context as context
+import utils.log as log
+import utils.context as context
 
-from analyser.utils.utils import grab, get_full_response
-from analyser.utils.constants import url_regex, resource_regex, jwt_regex
-from analyser.helpers.analysis import redirect
-from analyser.utils.constants import user_agents_list
+from utils.utils import grab, get_full_response
+from utils.constants import url_regex, resource_regex, jwt_regex
+from helpers.analysis import redirect
+from utils.constants import user_agents_list
 
 from bs4 import BeautifulSoup, Comment
 from colorama import Fore
@@ -63,7 +63,7 @@ def get_jwts():
     jwts = findall(jwt_regex, response)
 
     if len(jwts) == 0:
-        log.error('No JWTs')
+        log.fail('No JWTs')
         return
     
     log.success('JWTs found:')
