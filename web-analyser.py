@@ -23,8 +23,6 @@ parser.add_argument('--hide', '--hide-fail', help='Hide "info" logs', action='st
 parser.add_argument('-U', '--username', type=str, help='Username (for auth)')
 parser.add_argument('-P', '--password', type=str, help='Password (for auth)')
 
-# parser.add_argument('--digest', '--digest-auth', help='Use Digest Authentication instead of Basic Authentication', action='store_true')
-
 args = parser.parse_args()
 
 
