@@ -27,19 +27,19 @@ def grab(file: str='', text=True):
 def fix_url(url: str):
     '''Fixes incomplete urls'''
 
-    splits = url.split('.')
+    # isolate the scheme and the url
+    url_split = url.split('://')
     
-    # URL => 3
-    # IP  => 4
-    if not 3 <= len(splits) <= 4:
-        raise ValueError('Not a valid URL or IP')
+    # add www. if not full
+    if url_split[-1].count('.') == 1:
+        url = 'www.' + url_split[-1]
 
-
-    # Assume https, but ":" could also define port
-    if ':' not in splits[0]:
-        url = 'https://' + url
+    # add http:// if no scheme
+    if len(url_split) == 1:
+        return 'http://' + url
     
-    return url
+    # otherwise add scheme
+    return url_split[0] + '://' + url
 
 
 def fix_filepath(file: str):
@@ -66,7 +66,7 @@ def cookie_string_to_dict(cookies: str):
     cookies = cookies.split('; ')
 
     for c in cookies:
-        name, value = c.split('=')
+        name, value = c.split('=', 1)
 
         cookie_dict[name] = value
     
