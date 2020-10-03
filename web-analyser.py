@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import utils.context as context
 import utils.log as log
 import helpers.recon as recon
