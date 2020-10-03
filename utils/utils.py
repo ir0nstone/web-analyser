@@ -14,9 +14,6 @@ def grab(file: str='', text=True):
     if r.status_code not in accept_codes:
         if file != '':
             log.fail(f'Could not grab {file} - failed with status code {r.status_code}')
-    
-    if not r:
-        return ''
 
     if text:
         return r.text
