@@ -11,7 +11,7 @@ from colorama import Fore
 from re import findall
 from base64 import standard_b64decode
 
-def execute():
+def execute(agents: bool):
     '''The function that calls all others'''
 
     robots()
@@ -22,7 +22,9 @@ def execute():
     comments()
     urls()
     resources()
-    user_agents()
+
+    if agents:
+        user_agents()
 
 
 def robots():
@@ -38,8 +40,7 @@ def sitemap():
 
 
 def cookies():
-    r = grab(text=False)
-
+    r = context.default_req
     cookies = r.cookies.get_dict()
 
     if len(cookies) == 0:
@@ -58,7 +59,7 @@ def cookies():
 
 
 def get_jwts():
-    response = get_full_response(grab(text=False))
+    response = get_full_response(context.default_req)
 
     jwts = findall(jwt_regex, response)
 
@@ -77,9 +78,7 @@ def get_jwts():
 
 
 def redirects():
-    r = grab(text=False)
-
-    history = r.history
+    history = context.default_req.history
 
     if len(history) == 0:
         log.fail('No redirects')
@@ -98,9 +97,7 @@ def redirects():
 
 
 def comments():
-    r = grab()
-
-    soup = BeautifulSoup(r, 'html.parser')
+    soup = BeautifulSoup(context.default_req.text, 'html.parser')
     comments = soup.find_all(string=lambda text: isinstance(text, Comment))
 
     if len(comments) == 0:
@@ -114,7 +111,7 @@ def comments():
 
 
 def urls():
-    urls = findall(url_regex, grab())
+    urls = findall(url_regex, context.default_req.text)
     
     if len(urls) == 0:
         log.fail('No URLs')
@@ -127,7 +124,7 @@ def urls():
 
 
 def resources():
-    resources = findall(resource_regex, grab())
+    resources = findall(resource_regex, context.default_req.text)
     
     if len(resources) == 0:
         log.fail('No Resources')
@@ -140,7 +137,7 @@ def resources():
 
 
 def user_agents():
-    length = len(context.session.get(context.url).text)
+    length = len(context.default_req.text)
     log.info(f'Standard Response Length: {length}')
 
     for agent in user_agents_list:
