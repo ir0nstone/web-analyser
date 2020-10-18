@@ -1,7 +1,7 @@
 url = ''
-file = None
+file = None                 # Output File
 
-session = None
+session = None              # Overarching Session() object
+default_req = None          # Standard GET request to /
 
-# whether to hide the 'fail' messages
-hide_fail = False
+hide_fail = False           # hide 'fail' messages
