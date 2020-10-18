@@ -1,6 +1,6 @@
 # Recon
 
-The main purpose of this class is to grab as much information as it can about the website _**without**_ attempting any kind of exploitation
+The main purpose of this is to grab as much information as it can about the website _**without**_ attempting any kind of exploitation
 
 ##### `execute()`
 Runs all the other functions in the class.
