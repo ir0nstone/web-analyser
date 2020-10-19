@@ -59,6 +59,12 @@ def fix_filepath(file: str):
 
 
 def cookie_string_to_dict(cookies: str):
+    '''Converts a string of cookies into a dictionary
+
+    username=bob; password=yes
+    {'username': 'bob', 'password': 'yes'}
+    '''
+
     cookie_dict = {}
     
     cookies = cookies.split('; ')
@@ -72,4 +78,5 @@ def cookie_string_to_dict(cookies: str):
 
 
 def get_full_response(resp):
+    '''Return full response, including all headers'''
     return ''.join(f'{header.lower()}: {value}\r\n' for header, value in resp.headers.items()) + '\r\n' + resp.text

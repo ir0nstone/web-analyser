@@ -78,6 +78,7 @@ def get_jwts():
 
 
 def redirects():
+    # Grab the request's history
     history = context.default_req.history
 
     if len(history) == 0:
@@ -97,6 +98,7 @@ def redirects():
 
 
 def comments():
+    # Use BeautifulSoup to extract all comments
     soup = BeautifulSoup(context.default_req.text, 'html.parser')
     comments = soup.find_all(string=lambda text: isinstance(text, Comment))
 
@@ -111,6 +113,7 @@ def comments():
 
 
 def urls():
+    # regex for URLs
     urls = findall(url_regex, context.default_req.text)
     
     if len(urls) == 0:
@@ -124,6 +127,7 @@ def urls():
 
 
 def resources():
+    # regex for resources, e.g. /api/v2
     resources = findall(resource_regex, context.default_req.text)
     
     if len(resources) == 0:
@@ -137,9 +141,12 @@ def resources():
 
 
 def user_agents():
+    # Get standard length of response
     length = len(context.default_req.text)
     log.info(f'Standard Response Length: {length}')
 
+    # Iterate through all User-Agent, comparing response length to original
+    # If different, print that out
     for agent in user_agents_list:
         r = context.session.get(context.url, headers={'User-Agent': agent})
 
