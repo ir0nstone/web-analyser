@@ -46,8 +46,8 @@ def fix_filepath(file: str):
     if not file:
         return
 
-    # If there is a / or \, it's probably the full path already
-    if '/' in file or '\\' in file:
+    # If it starts with C:, \ or / it's likely an absolute path
+    if file.lower().startswith('c:') or file.startswith('\\') or file.startswith('/'):
         return file
 
     full_path = join(getcwd(), file)
