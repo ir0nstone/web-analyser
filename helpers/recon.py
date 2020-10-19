@@ -16,9 +16,13 @@ def execute(agents: bool):
 
     robots()
     sitemap()
+
     cookies()
     get_jwts()
+
     redirects()
+    test_post()
+
     comments()
     urls()
     resources()
@@ -97,9 +101,27 @@ def redirects():
         redirect(url.url)
 
 
+def test_post():
+    r = context.session.post(context.url)
+
+    if r.status_code == 501:
+        log.fail('POST request throws Code 501 (Unsupported Method)')
+    elif r.status_code == 200:
+        log.success('POST accepted!')
+        
+        length = len(r.text)
+
+        if context.default_len() == length:
+            log.fail('GET and POST responses are of same length', indent=1)
+        else:
+            log.success('GET and POST responses are of different lengths!', indent=1)
+    else:
+        log.info(f'POST returns Code {r.status_code} - could be something there')
+
+
 def comments():
     # Use BeautifulSoup to extract all comments
-    soup = BeautifulSoup(context.default_req.text, 'html.parser')
+    soup = BeautifulSoup(context.default_txt(), 'html.parser')
     comments = soup.find_all(string=lambda text: isinstance(text, Comment))
 
     if len(comments) == 0:
@@ -114,7 +136,7 @@ def comments():
 
 def urls():
     # regex for URLs
-    urls = findall(url_regex, context.default_req.text)
+    urls = findall(url_regex, context.default_txt())
     
     if len(urls) == 0:
         log.fail('No URLs')
@@ -128,7 +150,7 @@ def urls():
 
 def resources():
     # regex for resources, e.g. /api/v2
-    resources = findall(resource_regex, context.default_req.text)
+    resources = findall(resource_regex, context.default_txt())
     
     if len(resources) == 0:
         log.fail('No Resources')
@@ -142,7 +164,7 @@ def resources():
 
 def user_agents():
     # Get standard length of response
-    length = len(context.default_req.text)
+    length = context.default_len()
     log.info(f'Standard Response Length: {length}')
 
     # Iterate through all User-Agent, comparing response length to original
