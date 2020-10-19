@@ -1,3 +1,4 @@
+# All the regex
 url_regex = r'\w+\:\w+\.\w+\.\w+'
 resource_regex = r'("|\'){1}(/[\w\/]+)("|\'){1}'
 file_regex = r'\w+\.\w+'

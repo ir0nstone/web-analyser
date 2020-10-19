@@ -4,7 +4,7 @@ import utils.context as context
 
 init(autoreset=True)
 
-
+# Generic Function
 def __log(text, symbol, colour, end='\n', indent=0):
     text = str(text)
 
