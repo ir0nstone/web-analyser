@@ -5,7 +5,7 @@ import helpers.recon as recon
 from utils.utils import fix_url, fix_filepath, cookie_string_to_dict, grab
 
 from argparse import ArgumentParser
-from requests import Session, get
+from requests import Session
 
 
 # Arguments

@@ -1,10 +1,11 @@
-import utils.context as context
 import utils.log as log
+import utils.context as context
 
 from os import getcwd
 from os.path import exists, join
 
 accept_codes = [200, 301]
+
 
 def grab(file: str='', text=True):
     r = context.session.get(context.url + '/' + file)
