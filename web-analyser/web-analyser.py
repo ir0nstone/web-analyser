@@ -12,7 +12,6 @@ from requests import Session
 parser = ArgumentParser(description='A Web Analyser')
 
 parser.add_argument('-u', '--url', type=str, help='The URL', required=True)
-
 parser.add_argument('-o', '--output', type=str, help='The Output File')
 
 parser.add_argument('--agent', type=str, help='The User-Agent to use')
@@ -51,7 +50,9 @@ if args.username and args.password:
 
 # Log it all
 log.success(f'Analysing {context.url}')
-log.success(f'Saving output to {context.file}')
+
+if context.file:
+    log.success(f'Saving output to {context.file}')
 
 
 # Execute the different modules
