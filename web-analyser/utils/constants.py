@@ -7,7 +7,6 @@ jwt_regex = r'^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$'
 
 # Grabbed from
 # https://www.networkinghowtos.com/howto/common-user-agent-list/
-
 user_agents_list = [
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36',                                                          # Chrome
 
@@ -41,4 +40,12 @@ user_agents_list = [
     'Wget/1.20 (linux-gnu)',                                                                                                                                                         # Wget
 
     'Lynx/2.8.8pre.4 libwww-FM/2.14 SSL-MM/1.4.1 GNUTLS/2.12.23'                                                                                                                    # Lynx
+]
+
+# list of headers to be shown to the user!
+notable_headers = [
+    'server',
+    'x-provided-by',
+    'content-security-policy'
+    'x-powered-by'
 ]
