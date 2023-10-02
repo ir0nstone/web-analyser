@@ -34,13 +34,15 @@ def execute(agents: bool):
 def robots():
     text = grab('robots.txt')
 
-    log.info(f'Robots:\n{text}')
+    if text:
+        log.info(f'Robots:\n{text}')
 
 
 def sitemap():
     text = grab('sitemap.xml')
 
-    log.info(f'Sitemap:\n{text}')
+    if text:
+        log.info(f'Sitemap:\n{text}')
 
 
 def cookies():
@@ -50,7 +52,6 @@ def cookies():
     if len(cookies) == 0:
         log.fail('No cookies found')
         return
-
 
     log.info('Cookies:')
 
@@ -169,12 +170,20 @@ def user_agents():
 
     # Iterate through all User-Agent, comparing response length to original
     # If different, print that out
+    changes = False
+
     for agent in user_agents_list:
         r = context.session.get(context.url, headers={'User-Agent': agent})
 
         if len(r.text) != length:
             log.info(agent, indent=1)
             log.success(f'Response size is different: {len(r.text)}', indent=2)
+            changes = True
         else:
-            log.fail(agent, indent=1)
-            log.fail('Default length', indent=2)
+            log.weak_fail(agent, indent=1)
+            log.weak_fail('Default length', indent=2)
+
+    if changes:
+        log.success("Variation in User-Agent responses!")
+    else:
+        log.fail("No variation in User-Agent responses")
