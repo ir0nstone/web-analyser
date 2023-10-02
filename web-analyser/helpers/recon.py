@@ -12,7 +12,7 @@ from re import findall
 from base64 import standard_b64decode
 
 def execute(agents: bool):
-    '''The function that calls all others'''
+    """ The function that calls all others """
 
     analyse_headers()
 
@@ -38,21 +38,21 @@ def analyse_headers():
 
     for header, val in context.default_req.headers.items():
         if header.lower() in notable_headers:
-            log.info(f'Header: - {header} : {val}')
+            log.info(f"Header: - {header} : {val}")
 
 
 def robots():
-    text = grab('robots.txt')
+    text = grab("robots.txt")
 
     if text:
-        log.info(f'Robots:\n{text}')
+        log.info(f"Robots:\n{text}")
 
 
 def sitemap():
-    text = grab('sitemap.xml')
+    text = grab("sitemap.xml")
 
     if text:
-        log.info(f'Sitemap:\n{text}')
+        log.info(f"Sitemap:\n{text}")
 
 
 def cookies():
@@ -60,14 +60,14 @@ def cookies():
     cookies = r.cookies.get_dict()
 
     if len(cookies) == 0:
-        log.fail('No cookies found')
+        log.fail("No cookies found")
         return
 
-    log.info('Cookies:')
+    log.info("Cookies:")
 
     for x in cookies:
         cookie_data = x
-        cookie_data = cookie_data.ljust(10, ' ')
+        cookie_data = cookie_data.ljust(10, " ")
         cookie_data += cookies[x]
 
         log.info(cookie_data, indent=1)
@@ -79,32 +79,32 @@ def get_jwts():
     jwts = findall(jwt_regex, response)
 
     if len(jwts) == 0:
-        log.fail('No JWTs')
+        log.fail("No JWTs")
         return
     
-    log.success('JWTs found:')
+    log.success("JWTs found:")
 
     for jwt in jwts:
         log.success(jwt, indent=1)
 
         # The last section of a JWT is the signature
-        for section in jwt.split('.')[:-1]:
+        for section in jwt.split(".")[:-1]:
             log.info(standard_b64decode(section), indent=2)
 
 
 def redirects():
-    # Grab the request's history
+    # Grab the request"s history
     history = context.default_req.history
 
     if len(history) == 0:
-        log.fail('No redirects')
+        log.fail("No redirects")
         return
 
-    log.success('Redirects:')
+    log.success("Redirects:")
 
     for url in history:
         red = Fore.RED + str(url.status_code) + Fore.RESET
-        red = red.ljust(20, ' ')
+        red = red.ljust(20, " ")
         red += url.url
 
         log.info(red, indent=1)
@@ -116,30 +116,30 @@ def test_post():
     r = context.session.post(context.url)
 
     if r.status_code == 501:
-        log.fail('POST request throws Code 501 (Unsupported Method)')
+        log.fail("POST request throws Code 501 (Unsupported Method)")
     elif r.status_code == 200:
-        log.success('POST accepted!')
+        log.success("POST accepted!")
         
         length = len(r.text)
 
         if context.default_len() == length:
-            log.fail('GET and POST responses are of same length', indent=1)
+            log.fail("GET and POST responses are of same length", indent=1)
         else:
-            log.success('GET and POST responses are of different lengths!', indent=1)
+            log.success("GET and POST responses are of different lengths!", indent=1)
     else:
-        log.info(f'POST returns Code {r.status_code} - could be something there')
+        log.info(f"POST returns Code {r.status_code} - could be something there")
 
 
 def comments():
     # Use BeautifulSoup to extract all comments
-    soup = BeautifulSoup(context.default_txt(), 'html.parser')
+    soup = BeautifulSoup(context.default_txt(), "html.parser")
     comments = soup.find_all(string=lambda text: isinstance(text, Comment))
 
     if len(comments) == 0:
-        log.fail('No comments')
+        log.fail("No comments")
         return
 
-    log.success('Comments:')
+    log.success("Comments:")
 
     for c in comments:
         log.info(c, indent=1)
@@ -150,10 +150,10 @@ def urls():
     urls = findall(url_regex, context.default_txt())
     
     if len(urls) == 0:
-        log.fail('No URLs')
+        log.fail("No URLs")
         return
 
-    log.success('URLs:')
+    log.success("URLs:")
 
     for url in urls:
         log.info(url, indent=1)
@@ -161,37 +161,37 @@ def urls():
 
 def resources():
     # regex for resources, e.g. /api/v2
-    resources = findall(resource_regex, context.default_txt())
+    resources_list = findall(resource_regex, context.default_txt())
     
-    if len(resources) == 0:
-        log.fail('No Resources')
+    if len(resources_list) == 0:
+        log.fail("No Resources")
         return
 
-    log.success('Resources:')
+    log.success("Resources:")
 
-    for res in resources:
+    for res in resources_list:
         log.info(res[1], indent=1)
 
 
 def user_agents():
     # Get standard length of response
     length = context.default_len()
-    log.info(f'Standard Response Length: {length}')
+    log.info(f"Standard Response Length: {length}")
 
     # Iterate through all User-Agent, comparing response length to original
     # If different, print that out
     changes = False
 
     for agent in user_agents_list:
-        r = context.session.get(context.url, headers={'User-Agent': agent})
+        r = context.session.get(context.url, headers={"User-Agent": agent})
 
         if len(r.text) != length:
             log.info(agent, indent=1)
-            log.success(f'Response size is different: {len(r.text)}', indent=2)
+            log.success(f"Response size is different: {len(r.text)}", indent=2)
             changes = True
         else:
             log.weak_fail(agent, indent=1)
-            log.weak_fail('Default length', indent=2)
+            log.weak_fail("Default length", indent=2)
 
     if changes:
         log.success("Variation in User-Agent responses!")
