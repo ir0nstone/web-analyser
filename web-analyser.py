@@ -11,7 +11,7 @@ from requests import Session, get
 # Arguments
 parser = ArgumentParser(description='A Web Analyser')
 
-parser.add_argument('-u', '--url', type=str, help='The URL')
+parser.add_argument('-u', '--url', type=str, help='The URL', required=True)
 
 parser.add_argument('-o', '--output', type=str, help='The Output File')
 
