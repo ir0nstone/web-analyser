@@ -2,7 +2,7 @@ import utils.log as log
 import utils.context as context
 
 from utils.utils import grab, get_full_response
-from utils.constants import url_regex, resource_regex, jwt_regex
+from utils.constants import url_regex, resource_regex, jwt_regex, notable_headers
 from helpers.analysis import redirect
 from utils.constants import user_agents_list
 
@@ -13,6 +13,8 @@ from base64 import standard_b64decode
 
 def execute(agents: bool):
     '''The function that calls all others'''
+
+    analyse_headers()
 
     robots()
     sitemap()
@@ -29,6 +31,14 @@ def execute(agents: bool):
 
     if agents:
         user_agents()
+
+
+def analyse_headers():
+    # print(context.default_req.headers)
+
+    for header, val in context.default_req.headers.items():
+        if header.lower() in notable_headers:
+            log.info(f'Header: - {header} : {val}')
 
 
 def robots():
