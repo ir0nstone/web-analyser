@@ -1,4 +1,4 @@
-from utils.utils import url_regex, resource_regex, file_regex
+from utils.constants import url_regex, resource_regex, file_regex
 import utils.log as log
 
 from urllib.parse import unquote
