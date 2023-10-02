@@ -1,8 +1,6 @@
 import utils.context as context
 import utils.log as log
 
-from utils.constants import url_regex, resource_regex, file_regex
-
 from os import getcwd
 from os.path import exists, join
 
