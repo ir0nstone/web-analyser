@@ -17,7 +17,5 @@ Also allows you to specify your own:
 
 # Installing
 ```
-git clone https://github.com/ir0nstone/web-analyser.git
-cd web-analyser
-pip3 install -r requirements.txt
+pip3 install web-ctf-analyser
 ```
