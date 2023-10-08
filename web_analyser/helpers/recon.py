@@ -1,10 +1,10 @@
-import utils.log as log
-import utils.context as context
+import web_analyser.utils.log as log
+import web_analyser.utils.context as context
 
-from utils.utils import grab, get_full_response
-from utils.constants import url_regex, resource_regex, jwt_regex, notable_headers
-from helpers.analysis import redirect
-from utils.constants import user_agents_list
+from web_analyser.utils.utils import grab, get_full_response
+from web_analyser.utils.constants import url_regex, resource_regex, jwt_regex, notable_headers
+from web_analyser.helpers.analysis import redirect
+from web_analyser.utils.constants import user_agents_list
 
 from bs4 import BeautifulSoup, Comment
 from colorama import Fore

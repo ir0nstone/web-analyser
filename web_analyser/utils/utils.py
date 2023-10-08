@@ -1,5 +1,5 @@
-import utils.log as log
-import utils.context as context
+import web_analyser.utils.log as log
+import web_analyser.utils.context as context
 
 from os import getcwd
 from os.path import exists, join

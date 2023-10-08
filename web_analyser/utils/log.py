@@ -1,6 +1,6 @@
 from colorama import init, Fore
 
-import utils.context as context
+import web_analyser.utils.context as context
 
 init(autoreset=True)
 
